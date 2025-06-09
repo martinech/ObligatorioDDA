@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package obligatorio;
+package vistas;
 
 /**
  *
@@ -43,11 +43,11 @@ public class VentanaCliente extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cbxItems = new javax.swing.JComboBox<>();
+        cbxItems = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtComentario = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listCategorias = new javax.swing.JList<>();
+        listCategorias = new javax.swing.JList();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -58,17 +58,6 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -115,18 +104,12 @@ public class VentanaCliente extends javax.swing.JFrame {
         jLabel6.setText("Categorías");
 
         cbxItems.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxItems.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtComentario.setColumns(20);
         txtComentario.setRows(5);
         jScrollPane3.setViewportView(txtComentario);
 
         listCategorias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        listCategorias.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(listCategorias);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -271,7 +254,7 @@ public class VentanaCliente extends javax.swing.JFrame {
                                     .addComponent(btnEliminarPedido))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4)
                                 .addGap(92, 92, 92)))
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -316,7 +299,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPedido;
     private javax.swing.JButton btnFinalizarServicios;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox<String> cbxItems;
+    private javax.swing.JComboBox cbxItems;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -335,7 +318,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JList<String> listCategorias;
+    private javax.swing.JList listCategorias;
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JLabel txtMontoTotal;
     private javax.swing.JTextField txtNumeroCliente;

@@ -27,7 +27,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPedido = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNumeroCliente = new javax.swing.JTextField();
@@ -40,7 +40,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         txtMontoTotal = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtMensaje = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cbxItems = new javax.swing.JComboBox();
@@ -58,7 +58,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPedido);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Número de cliente:");
@@ -92,10 +92,10 @@ public class VentanaCliente extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mensajes del sistema");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Mensaje del sistema aqui...");
-        jScrollPane2.setViewportView(jTextArea1);
+        txtMensaje.setColumns(20);
+        txtMensaje.setRows(5);
+        txtMensaje.setText("Mensaje del sistema aqui...");
+        jScrollPane2.setViewportView(txtMensaje);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Identificarse");
@@ -316,10 +316,10 @@ public class VentanaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList listCategorias;
+    private javax.swing.JTable tblPedido;
     private javax.swing.JTextArea txtComentario;
+    private javax.swing.JTextArea txtMensaje;
     private javax.swing.JLabel txtMontoTotal;
     private javax.swing.JTextField txtNumeroCliente;
     private javax.swing.JPasswordField txtPassword;

@@ -28,41 +28,47 @@ public class VentanaGestor extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        listPedidosPendientes = new javax.swing.JList();
+        btnTomarPedido = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        tblPedidosTomados = new javax.swing.JTable();
+        btnFinalizarPedido = new javax.swing.JButton();
+        btnEntregarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Gestor: | Unidad Procesadora: ");
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listPedidosPendientes);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Tomar Pedido");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTomarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnTomarPedido.setText("Tomar Pedido");
+        btnTomarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTomarPedidoActionPerformed(evt);
             }
         });
 
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblPedidosTomados);
+        if (tblPedidosTomados.getColumnModel().getColumnCount() > 0) {
+            tblPedidosTomados.getColumnModel().getColumn(0).setHeaderValue("Title 1");
+            tblPedidosTomados.getColumnModel().getColumn(1).setHeaderValue("Title 2");
+            tblPedidosTomados.getColumnModel().getColumn(2).setHeaderValue("Title 3");
+            tblPedidosTomados.getColumnModel().getColumn(3).setHeaderValue("Title 4");
+        }
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setText("Agregar Pedido");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnFinalizarPedido.setText("Finalizar Pedido");
+        btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnFinalizarPedidoActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Entregar Pedido");
+        btnEntregarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEntregarPedido.setText("Entregar Pedido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,10 +78,10 @@ public class VentanaGestor extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnFinalizarPedido)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addComponent(jButton1)
+                        .addComponent(btnEntregarPedido))
+                    .addComponent(btnTomarPedido)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -92,39 +98,39 @@ public class VentanaGestor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnTomarPedido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnFinalizarPedido)
+                    .addComponent(btnEntregarPedido))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnEntregarPedido;
+    private javax.swing.JButton btnFinalizarPedido;
+    private javax.swing.JButton btnTomarPedido;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JList listPedidosPendientes;
+    private javax.swing.JTable tblPedidosTomados;
     // End of variables declaration//GEN-END:variables
 }

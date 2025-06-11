@@ -4,18 +4,37 @@
  */
 package dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author marti
  */
-class Insumo {
+public class Insumo {
     
     private String nombre;
     
     private int stockMin;
     
     private int stockAct;
+    
+    private List<Ingrediente> ingredientes = new ArrayList<>();
 
+    public Insumo(String nombre, int stockMin, int stockAct) {
+        this.nombre = nombre;
+        this.stockMin = stockMin;
+        this.stockAct = stockAct;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    
+    
+    
+    
     public String getNombre() {
         return nombre;
     }

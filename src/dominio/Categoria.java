@@ -5,6 +5,7 @@
 package dominio;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,13 +15,24 @@ public class Categoria {
     
     private String nombre;
     
-    private ArrayList<ItemMenu> itemsMenu;
+    private List<ItemMenu> itemsMenu = new ArrayList<>();
 
+    public Categoria(String nombre, ArrayList<ItemMenu> itemsMenu) {
+        this.nombre = nombre;
+        this.itemsMenu = itemsMenu;
+    }
+
+    public Categoria(String nombre) {
+        this.nombre = nombre;
+    }
+
+    
+    
     public String getNombre() {
         return nombre;
     }
 
-    public ArrayList<ItemMenu> getItemsMenu() {
+    public List<ItemMenu> getItemsMenu() {
         return itemsMenu;
     }  
     

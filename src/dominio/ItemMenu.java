@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dominio;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,18 +12,51 @@ public class ItemMenu {
     
     private String nombre;
     
-    private double precio;
+    private double precioUnitario;
     
     private ArrayList<Ingrediente> ingredientes;
     
     private UnidadProcesadora unidadProcesadora;
+    
+    private Categoria categoria;
 
-    public String getNombre() {
-        return nombre;
+    public ItemMenu(String nombre, double precioUnitario, 
+            ArrayList<Ingrediente> ingredientes, 
+            UnidadProcesadora unidadProcesadora, 
+            Categoria categoria) {
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.ingredientes = ingredientes;
+        this.unidadProcesadora = unidadProcesadora;
+        this.categoria = categoria;
     }
 
-    public double getPrecio() {
-        return precio;
+    public ItemMenu(String nombre, 
+            double precioUnitario, 
+            UnidadProcesadora unidadProcesadora, 
+            Categoria categoria) {
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.unidadProcesadora = unidadProcesadora;
+        this.categoria = categoria;
+        this.ingredientes = new ArrayList<>();
+    }
+    
+    
+    
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    
+    
+    public String getNombre() {
+        return nombre;
     }
 
     public ArrayList<Ingrediente> getIngredientes() {

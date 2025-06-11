@@ -24,7 +24,7 @@ public class ControladorLogin implements Observador{
         this.vista = v;
         this.cliente = c;
         Fachada.getInstancia().agregarObservador(this);
-        vista.setTitle("Esperando acceso");
+        //vista.setTitle("Esperando acceso");
     }
  
     @Override

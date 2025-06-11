@@ -12,7 +12,7 @@ public class Cliente extends Usuario{
     
     private int id;
 
-    public Cliente(String password, String nombreCompleto, int id) {
+    public Cliente(int id, String password, String nombreCompleto) {
         super(password, nombreCompleto);
         this.id = id;
     }

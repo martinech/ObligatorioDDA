@@ -41,5 +41,9 @@ public class Fachada extends Observable{
     public Cliente loginCliente(String id, String password) throws PollomorfismoException{
         return sAcceso.loginCliente(id,password);
     }
+    
+    public Gestor loginGestor(String nomUsuario, String password) throws PollomorfismoException{
+        return sAcceso.loginGestor(nomUsuario,password);
+    }
 
 }

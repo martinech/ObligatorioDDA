@@ -4,6 +4,8 @@
  */
 package IU;
 
+import dominio.Gestor;
+
 /**
  *
  * @author marti
@@ -13,7 +15,7 @@ public class VentanaGestor extends javax.swing.JFrame {
     /**
      * Creates new form VentanaGestor
      */
-    public VentanaGestor() {
+    public VentanaGestor(Gestor gestor) {
         initComponents();
         setLocationRelativeTo(null);
     }

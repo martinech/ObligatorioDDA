@@ -4,24 +4,24 @@
  */
 package IU;
 
-import controladores.ControladorLogin;
+import controladores.ControladorLoginCliente;
 import dominio.Cliente;
 import javax.swing.JOptionPane;
-import vistas.VistaLogin;
+import vistas.VistaLoginCliente;
 
 /**
  *
  * @author marti
  */
-public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
+public class VentanaCliente extends javax.swing.JFrame implements VistaLoginCliente {
 
-    private ControladorLogin controlador;
+    private ControladorLoginCliente controlador;
     
-    public VentanaCliente() {
+    public VentanaCliente(MenuDesarrollo padre) {
         initComponents();
-        setLocationRelativeTo(null);
-        controlador = new ControladorLogin(this);
-        this.setTitle("ACCEDER");
+        setLocationRelativeTo(padre);
+        controlador = new ControladorLoginCliente(this);
+        this.setTitle("Esperando Acceso...");
     }
 
     /**
@@ -288,8 +288,10 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String numCliente = txtNumeroCliente.getText();
         String password = txtPassword.getText();
-        Cliente cliente = controlador.loginCliente(numCliente, password);   
-        JOptionPane.showMessageDialog(this, cliente.getId(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        Cliente cliente = controlador.loginCliente(numCliente, password);
+        if (cliente==null){ // No se pudo loguear
+            JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnConfirmarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidosActionPerformed
@@ -348,6 +350,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    //no se puede usar joptionpane ni modales
     @Override
     public void mostrarError(String message) {
         JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);

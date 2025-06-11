@@ -6,40 +6,38 @@ package controladores;
 
 import dominio.Cliente;
 import dominio.Fachada;
+import dominio.Gestor;
 import excepciones.PollomorfismoException;
-import javax.swing.JOptionPane;
 import observador.Observable;
 import observador.Observador;
-import vistas.VistaLogin;
+import vistas.VistaLoginGestor;
 
 /**
  *
  * @author marti
  */
-public class ControladorLogin implements Observador{
-       
-    private VistaLogin vista;
+public class ControladorLoginGestor implements Observador{
     
-    public ControladorLogin(VistaLogin v){
+    private VistaLoginGestor vista;
+    
+    public ControladorLoginGestor(VistaLoginGestor v){
         this.vista = v;
         Fachada.getInstancia().agregarObservador(this);
-        //vista.setTitle("Esperando acceso");
+        //settitle
     }
- 
-    @Override
-    public void actualizar(Observable origen, Object evento) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public Cliente loginCliente(String numCliente, String password) {
+    
+    public Gestor loginGestor(String nomUsuario, String password) {
         try{
-            return Fachada.getInstancia().loginCliente(numCliente, password);
+            return Fachada.getInstancia().loginGestor(nomUsuario, password);
         } catch (PollomorfismoException e){
             vista.mostrarError(e.getMessage());
             return null;
         }
     }
-    
-    
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

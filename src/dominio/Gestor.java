@@ -14,7 +14,7 @@ public class Gestor extends Usuario{
       
     private UnidadProcesadora unidadProcesadora;
 
-    public Gestor(String password, String nombreCompleto, String nombreUsuario, UnidadProcesadora unidadProcesadora) {
+    public Gestor(String nombreUsuario, String password, String nombreCompleto, UnidadProcesadora unidadProcesadora) {
         super(password, nombreCompleto);
         this.nombreUsuario = nombreUsuario;
         this.unidadProcesadora = unidadProcesadora;
@@ -29,8 +29,8 @@ public class Gestor extends Usuario{
     }
 
     @Override
-    public boolean verificarCredenciales(String id, String password) {
-        if(nombreUsuario == id && this.password==password) {
+    public boolean verificarCredenciales(String nomUsuario, String password) {
+        if(this.nombreUsuario.equals(nomUsuario) && this.password.equals(password)) {
             return true;
         }
         return false;

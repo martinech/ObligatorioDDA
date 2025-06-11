@@ -30,10 +30,7 @@ public class Cliente extends Usuario{
     
     @Override
     public boolean verificarCredenciales(String id, String password) {
-        if(this.id == id && this.password==password) {
-            return true;
-        }
-        return false;
+        return this.id.equals(id) && this.password.equals(password);
     }
 
 }

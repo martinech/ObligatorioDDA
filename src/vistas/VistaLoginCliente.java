@@ -8,7 +8,7 @@ package vistas;
  *
  * @author marti
  */
-public interface VistaLogin {
+public interface VistaLoginCliente {
        
     public void cargarCategorias();
     

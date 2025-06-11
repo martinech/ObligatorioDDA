@@ -5,6 +5,8 @@
 package obligatorio;
 
 import IU.VentanaCliente;
+import IU.LoginGestor;
+import IU.MenuDesarrollo;
 import dominio.EstadoDispositivo;
 import dominio.ItemMenu;
 import java.util.stream.Collectors;
@@ -55,7 +57,7 @@ public class Obligatorio {
                 .collect(Collectors.joining(", "))
         );
 
-        new VentanaCliente().setVisible(true);
+        new MenuDesarrollo().setVisible(true);
         
     }
 }

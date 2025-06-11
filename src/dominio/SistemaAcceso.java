@@ -31,8 +31,8 @@ public class SistemaAcceso {
         return unCliente;
     }
     
-    public Gestor loginGestor (String id, String password) throws PollomorfismoException {
-        Gestor unGestor = (Gestor)this.buscarUsuario(id, password, gestores);        
+    public Gestor loginGestor (String nomUsuario, String password) throws PollomorfismoException {
+        Gestor unGestor = (Gestor)this.buscarUsuario(nomUsuario, password, gestores);        
         return unGestor;
     }
     

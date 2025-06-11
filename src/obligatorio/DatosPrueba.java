@@ -8,6 +8,7 @@ import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Dispositivo;
 import dominio.EstadoDispositivo;
+import dominio.Fachada;
 import dominio.Gestor;
 import dominio.Ingrediente;
 import dominio.ItemMenu;
@@ -21,10 +22,8 @@ import java.util.List;
  * @author HP
  */
 public class DatosPrueba {
-    public static List<Cliente> clientes = new ArrayList<>();
     public static List<Dispositivo> dispositivos = new ArrayList<>();
     public static List<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
-    public static List<Gestor> gestores = new ArrayList<>();
     public static List<Categoria> categorias = new ArrayList<>();
     public static List<ItemMenu> items = new ArrayList<>();
     public static List<Insumo> insumos = new ArrayList<>();
@@ -47,13 +46,13 @@ public class DatosPrueba {
        
        //Gestores
        Gestor g1 = new Gestor("ana", "coc123", "Ana Lopez", cocina);
-       gestores.add(g1);
+       Fachada.getInstancia().agregarGestor("ana", "coc123", "Ana Lopez", cocina);
        cocina.getGestores().add(g1);
        Gestor g2 = new Gestor("julian", "bar123", "Julian Perez", bar);
-       gestores.add(g2);
+       Fachada.getInstancia().agregarGestor("julian", "bar123", "Julian Perez", bar);
        bar.getGestores().add(g2);
        Gestor g3 = new Gestor("mateo", "sush123", "Mateo Hernandez", barraSushi);
-       gestores.add(g3);
+       Fachada.getInstancia().agregarGestor("mateo", "sush123", "Mateo Hernandez", barraSushi);
        barraSushi.getGestores().add(g3);
        
        //categorias
@@ -84,12 +83,12 @@ public class DatosPrueba {
        barraSushi.getItems().add(nigiri);
        
        //clientes
-       Cliente c1= new Cliente(1,"c1pass", "Carlos Diaz");
-       Cliente c2= new Cliente(2,"c2pass", "Roberto Carlos");
-       Cliente c3= new Cliente(3,"c3pass", "Andres Roberto");
-       clientes.add(c1);
-       clientes.add(c2);
-       clientes.add(c3);
+       Cliente c1= new Cliente("1","c1pass", "Carlos Diaz");
+       Cliente c2= new Cliente("2","c2pass", "Roberto Carlos");
+       Cliente c3= new Cliente("3","c3pass", "Andres Roberto");
+       Fachada.getInstancia().agregarCliente("1", "c1pass", "Carlos Diaz");
+       Fachada.getInstancia().agregarCliente("2", "c2pass", "Roberto Carlos");
+       Fachada.getInstancia().agregarCliente("3", "c3pass", "Andres Roberto");
        
        // dispositivos
        

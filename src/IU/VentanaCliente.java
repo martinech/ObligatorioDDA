@@ -4,6 +4,9 @@
  */
 package IU;
 
+import controladores.ControladorLogin;
+import dominio.Cliente;
+import javax.swing.JOptionPane;
 import vistas.VistaLogin;
 
 /**
@@ -12,12 +15,13 @@ import vistas.VistaLogin;
  */
 public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
 
-    /**
-     * Creates new form VentanaCliente
-     */
+    private ControladorLogin controlador;
+    
     public VentanaCliente() {
         initComponents();
         setLocationRelativeTo(null);
+        controlador = new ControladorLogin(this);
+        this.setTitle("ACCEDER");
     }
 
     /**
@@ -60,6 +64,11 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
         jSeparator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(tblPedido);
 
@@ -277,12 +286,19 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
     }//GEN-LAST:event_txtNumeroClienteActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        String numCliente = txtNumeroCliente.getText();
+        String password = txtPassword.getText();
+        Cliente cliente = controlador.loginCliente(numCliente, password);   
+        JOptionPane.showMessageDialog(this, cliente.getId(), "ERROR", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnConfirmarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfirmarPedidosActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        
+    }//GEN-LAST:event_formWindowOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -318,11 +334,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void login(int numCliente, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void cargarCategorias() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -335,5 +346,10 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLogin {
     @Override
     public void cargarPedidos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void mostrarError(String message) {
+        JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 }

@@ -10,23 +10,30 @@ package dominio;
  */
 public class Cliente extends Usuario{
     
-    private int id;
+    private String id;
 
-    public Cliente(int id, String password, String nombreCompleto) {
+    public Cliente(String id, String password, String nombreCompleto) {
         super(password, nombreCompleto);
         this.id = id;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     
     public boolean validar(){
-        if(super.validar() && id>0){
+        if(super.validar() && id!=null && !id.isBlank()){
             return true;
         }
         return false;
     }
     
-    
+    @Override
+    public boolean verificarCredenciales(String id, String password) {
+        if(this.id == id && this.password==password) {
+            return true;
+        }
+        return false;
+    }
+
 }

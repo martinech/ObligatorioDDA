@@ -4,14 +4,47 @@
  */
 package dominio;
 
+import excepciones.PollomorfismoException;
+import java.util.ArrayList;
+
 /**
  *
  * @author marti
  */
 public class SistemaAcceso {
-
-    void loginCliente(String id, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    private ArrayList<Cliente> clientes = new ArrayList();
+    private ArrayList<Gestor> gestores = new ArrayList();
+    
+    public void agregarCliente(String numCliente, String password, String nombreCompleto){
+        Cliente cliente = new Cliente(numCliente, password, nombreCompleto);
+        clientes.add(cliente);
     }
+    
+    public void agregarGestor(String password, String nombreCompleto, String nombreUsuario, UnidadProcesadora unidadProcesadora){
+        Gestor gestor = new Gestor(password, nombreCompleto, nombreUsuario, unidadProcesadora);
+        gestores.add(gestor);
+    }
+
+    public Cliente loginCliente(String id, String password) throws PollomorfismoException {
+        Cliente unCliente = (Cliente)this.buscarUsuario(id, password, clientes);        
+        return unCliente;
+    }
+    
+    public Gestor loginGestor (String id, String password) throws PollomorfismoException {
+        Gestor unGestor = (Gestor)this.buscarUsuario(id, password, gestores);        
+        return unGestor;
+    }
+    
+    private Usuario buscarUsuario(String id, String psw, ArrayList lista){
+        Usuario usuario;
+        for(Object obj:lista){
+            usuario = (Usuario)obj;           
+            if(usuario.verificarCredenciales(id, psw)){              
+                return usuario;
+            }
+        }
+        return null;   
+   } 
     
 }

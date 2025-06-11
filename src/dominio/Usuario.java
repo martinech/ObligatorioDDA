@@ -8,11 +8,11 @@ package dominio;
  *
  * @author marti
  */
-public class Usuario {
+public abstract class Usuario {
     
-    private String password;
+    protected String password;
     
-    private String nombreCompleto;
+    protected String nombreCompleto;
 
     public Usuario(String password, String nombreCompleto) {
         this.password = password;
@@ -33,5 +33,7 @@ public class Usuario {
         }
         return true;
     }
+    
+    public abstract boolean verificarCredenciales(String id, String password);
     
 }

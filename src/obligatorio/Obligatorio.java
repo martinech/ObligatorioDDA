@@ -4,6 +4,7 @@
  */
 package obligatorio;
 
+import IU.VentanaCliente;
 import dominio.EstadoDispositivo;
 import dominio.ItemMenu;
 import java.util.stream.Collectors;
@@ -23,10 +24,10 @@ public class Obligatorio {
         DatosPrueba.precargar();
         
           // 2) Verificar tamaños
-        System.out.println("Clientes cargados:     " + DatosPrueba.clientes.size());
+        //System.out.println("Clientes cargados:     " + DatosPrueba.clientes.size());
         System.out.println("Dispositivos cargados: " + DatosPrueba.dispositivos.size());
         System.out.println("Unidades cargadas:     " + DatosPrueba.unidadesProcesadoras.size());
-        System.out.println("Gestores cargados:     " + DatosPrueba.gestores.size());
+        //System.out.println("Gestores cargados:     " + DatosPrueba.gestores.size());
         System.out.println("Categorías cargadas:   " + DatosPrueba.categorias.size());
         System.out.println("Items cargados:        " + DatosPrueba.items.size());
         System.out.println("Insumos cargados:      " + DatosPrueba.insumos.size());
@@ -54,6 +55,7 @@ public class Obligatorio {
                 .collect(Collectors.joining(", "))
         );
 
+        new VentanaCliente().setVisible(true);
         
     }
 }

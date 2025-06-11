@@ -4,15 +4,18 @@
  */
 package IU;
 
+import controladores.ControladorLogin;
+import dominio.Gestor;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author marti
  */
 public class VentanaLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaLogin
-     */
+    private ControladorLogin controlador;
+    
     public VentanaLogin() {
         initComponents();
     }
@@ -39,6 +42,11 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel2.setText("Contraseña");
 
         jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,6 +86,14 @@ public class VentanaLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String usuario = txtUsuario.getText();
+        String password = txtPassword.getText();
+        //Gestor gestor = controlador.loginCliente(usuario, password);
+        this.dispose();
+        //new VentanaGestor(gestor).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

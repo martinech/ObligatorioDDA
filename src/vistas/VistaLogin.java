@@ -9,13 +9,13 @@ package vistas;
  * @author marti
  */
 public interface VistaLogin {
-    
-    public void login(int numCliente, String password);
-    
+       
     public void cargarCategorias();
     
     public void cargarItems();
     
     public void cargarPedidos();
+
+    public void mostrarError(String message);
     
 }

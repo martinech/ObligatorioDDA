@@ -4,6 +4,7 @@
  */
 package dominio;
 
+import excepciones.PollomorfismoException;
 import observador.Observable;
 
 /**
@@ -24,9 +25,21 @@ public class Fachada extends Observable{
     
     private Fachada() {
     }
+
+    public SistemaAcceso getsAcceso() {
+        return sAcceso;
+    }
     
-    private void loginCliente(String id, String password){
-        sAcceso.loginCliente(id,password);
+    public void agregarCliente(String numCliente, String password, String nombreCompleto){
+        sAcceso.agregarCliente(numCliente, password, nombreCompleto);
+    }
+    
+    public void agregarGestor(String password, String nombreCompleto, String nombreUsuario, UnidadProcesadora unidadProcesadora){
+        sAcceso.agregarGestor(password, nombreCompleto, nombreUsuario, unidadProcesadora);
+    }
+    
+    public Cliente loginCliente(String id, String password) throws PollomorfismoException{
+        return sAcceso.loginCliente(id,password);
     }
 
 }

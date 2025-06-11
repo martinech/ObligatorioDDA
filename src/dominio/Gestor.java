@@ -28,6 +28,14 @@ public class Gestor extends Usuario{
         return unidadProcesadora;
     }
 
+    @Override
+    public boolean verificarCredenciales(String id, String password) {
+        if(nombreUsuario == id && this.password==password) {
+            return true;
+        }
+        return false;
+    }
+
     
     
 }

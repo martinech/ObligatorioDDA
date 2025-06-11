@@ -8,26 +8,20 @@ package dominio;
  *
  * @author marti
  */
-public class Gestor {
+public class Gestor extends Usuario{
     
     private String nombreUsuario;
-    
-    private String password;
-    
-    private String nombreCompleto;
-    
+      
     private UnidadProcesadora unidadProcesadora;
+
+    public Gestor(String password, String nombreCompleto, String nombreUsuario, UnidadProcesadora unidadProcesadora) {
+        super(password, nombreCompleto);
+        this.nombreUsuario = nombreUsuario;
+        this.unidadProcesadora = unidadProcesadora;
+    }
 
     public String getNombreUsuario() {
         return nombreUsuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
     }
 
     public UnidadProcesadora getUnidadProcesadora() {

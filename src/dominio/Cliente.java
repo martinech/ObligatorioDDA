@@ -8,24 +8,24 @@ package dominio;
  *
  * @author marti
  */
-public class Cliente {
+public class Cliente extends Usuario{
     
     private int id;
-    
-    private String password;
-    
-    private String nombreCompleto;
+
+    public Cliente(String password, String nombreCompleto, int id) {
+        super(password, nombreCompleto);
+        this.id = id;
+    }
 
     public int getId() {
         return id;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    
+    public boolean validar(){
+        if(super.validar() && id>0){
+            return true;
+        }
+        return false;
     }
     
     

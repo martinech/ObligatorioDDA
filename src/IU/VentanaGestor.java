@@ -5,12 +5,13 @@
 package IU;
 
 import dominio.Gestor;
+import vistas.VistaLoginGestor;
 
 /**
  *
  * @author marti
  */
-public class VentanaGestor extends javax.swing.JFrame {
+public class VentanaGestor extends javax.swing.JFrame{
 
     /**
      * Creates new form VentanaGestor
@@ -136,4 +137,5 @@ public class VentanaGestor extends javax.swing.JFrame {
     private javax.swing.JList listPedidosPendientes;
     private javax.swing.JTable tblPedidosTomados;
     // End of variables declaration//GEN-END:variables
+
 }

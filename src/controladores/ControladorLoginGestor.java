@@ -5,7 +5,7 @@
 package controladores;
 
 import dominio.Cliente;
-import dominio.Fachada;
+import logica.Fachada;
 import dominio.Gestor;
 import excepciones.PollomorfismoException;
 import observador.Observable;

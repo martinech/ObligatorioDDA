@@ -5,17 +5,21 @@
 package IU;
 
 import controladores.ControladorLoginCliente;
+import dominio.Categoria;
 import dominio.Cliente;
-import javax.swing.JOptionPane;
-import vistas.VistaLoginCliente;
+import java.util.ArrayList;
+import logica.Fachada;
+import vistas.VistaCliente;
 
 /**
  *
  * @author marti
  */
-public class VentanaCliente extends javax.swing.JFrame implements VistaLoginCliente {
+public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
 
     private ControladorLoginCliente controlador;
+    
+    private ArrayList<Categoria> categorias;
     
     public VentanaCliente(MenuDesarrollo padre) {
         initComponents();
@@ -54,7 +58,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         jScrollPane3 = new javax.swing.JScrollPane();
         txtComentario = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listCategorias = new javax.swing.JList();
+        listaCategorias = new javax.swing.JList();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -62,6 +66,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         btnFinalizarServicios = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        labelMensajeLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -99,7 +104,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         btnEliminarPedido.setText("Eliminar Pedido");
 
         txtMontoTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtMontoTotal.setText("Monto total: ");
+        txtMontoTotal.setText("Monto total: $0");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mensajes del sistema");
@@ -121,8 +126,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         txtComentario.setRows(5);
         jScrollPane3.setViewportView(txtComentario);
 
-        listCategorias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jScrollPane4.setViewportView(listCategorias);
+        listaCategorias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jScrollPane4.setViewportView(listaCategorias);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Ítems");
@@ -146,6 +151,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Comentario");
+
+        labelMensajeLogin.setText("INGRESE NÚMERO DE CLIENTE Y CONTRASEÑA");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,17 +194,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
                             .addComponent(jLabel4)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 1191, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(278, 278, 278)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnLogin))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -207,10 +203,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnFinalizarServicios)))))
                 .addGap(10, 10, 10))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
@@ -222,20 +214,46 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtMontoTotal)
                 .addGap(85, 85, 85))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(148, 148, 148)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel2)
+                        .addGap(38, 38, 38)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(btnLogin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(labelMensajeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin))
-                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel1)
+                                .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnLogin))))
+                .addGap(18, 18, 18)
+                .addComponent(labelMensajeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +293,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -290,7 +308,10 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         String password = txtPassword.getText();
         Cliente cliente = controlador.loginCliente(numCliente, password);
         if (cliente==null){ // No se pudo loguear
-            JOptionPane.showMessageDialog(this, "Usuario y/o contraseña incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("CREDENCIALES INCORRECTAS");
+        } else{
+            cargarCategorias(Fachada.getInstancia().getCategorias());
+            labelMensajeLogin.setText("LOGIN EXITOSO: " + cliente.getNombreCompleto());
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -326,7 +347,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JList listCategorias;
+    private javax.swing.JLabel labelMensajeLogin;
+    private javax.swing.JList listaCategorias;
     private javax.swing.JTable tblPedido;
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JTextArea txtMensaje;
@@ -336,8 +358,12 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public void cargarCategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void cargarCategorias(ArrayList<Categoria> categorias) {
+        ArrayList<String> categoriasString = new ArrayList();
+        for(Categoria c: categorias){
+            categoriasString.add(c.getNombre());
+        }
+        listaCategorias.setListData(categoriasString.toArray());
     }
 
     @Override
@@ -350,9 +376,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaLoginClie
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    //no se puede usar joptionpane ni modales
     @Override
     public void mostrarError(String message) {
-        JOptionPane.showMessageDialog(this, message, "ERROR", JOptionPane.ERROR_MESSAGE);
+        labelMensajeLogin.setText(message);
     }
 }

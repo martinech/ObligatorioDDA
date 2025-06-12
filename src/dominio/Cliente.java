@@ -11,6 +11,8 @@ package dominio;
 public class Cliente extends Usuario{
     
     private String id;
+    
+    private Dispositivo dispositivo;
 
     public Cliente(String id, String password, String nombreCompleto) {
         super(password, nombreCompleto);
@@ -27,6 +29,16 @@ public class Cliente extends Usuario{
         }
         return false;
     }
+
+    public Dispositivo getDispositivo() {
+        return dispositivo;
+    }
+
+    public void setDispositivo(Dispositivo dispositivo) {
+        this.dispositivo = dispositivo;
+    }
+    
+    
     
     @Override
     public boolean verificarCredenciales(String id, String password) {

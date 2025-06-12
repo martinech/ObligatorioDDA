@@ -10,14 +10,14 @@ package dominio;
  */
 public class Dispositivo {
     
+    private static int contador = 1;
+    
     private int id;
     
     private EstadoDispositivo estado;
-    
-    
 
-    public Dispositivo(int id) {
-        this.id = id;
+    public Dispositivo() {
+        this.id = contador++;
         this.estado = estado.DISPONIBLE;
     }
 

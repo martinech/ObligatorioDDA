@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dominio;
+package logica;
 
+import dominio.Cliente;
+import dominio.Gestor;
+import dominio.UnidadProcesadora;
+import dominio.Usuario;
 import excepciones.PollomorfismoException;
 import java.util.ArrayList;
 
@@ -15,6 +19,7 @@ public class SistemaAcceso {
     
     private ArrayList<Cliente> clientes = new ArrayList();
     private ArrayList<Gestor> gestores = new ArrayList();
+
     
     public void agregarCliente(String numCliente, String password, String nombreCompleto){
         Cliente cliente = new Cliente(numCliente, password, nombreCompleto);
@@ -25,7 +30,7 @@ public class SistemaAcceso {
         Gestor gestor = new Gestor(password, nombreCompleto, nombreUsuario, unidadProcesadora);
         gestores.add(gestor);
     }
-
+    
     public Cliente loginCliente(String id, String password) throws PollomorfismoException {
         Cliente unCliente = (Cliente)this.buscarUsuario(id, password, clientes);        
         return unCliente;
@@ -45,6 +50,17 @@ public class SistemaAcceso {
             }
         }
         return null;   
-   } 
+   }
+
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public ArrayList<Gestor> getGestores() {
+        return gestores;
+    }
+    
+    
+
     
 }

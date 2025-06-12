@@ -8,7 +8,7 @@ import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Dispositivo;
 import dominio.EstadoDispositivo;
-import dominio.Fachada;
+import logica.Fachada;
 import dominio.Gestor;
 import dominio.Ingrediente;
 import dominio.ItemMenu;
@@ -24,9 +24,9 @@ import java.util.List;
 public class DatosPrueba {
     public static List<Dispositivo> dispositivos = new ArrayList<>();
     public static List<UnidadProcesadora> unidadesProcesadoras = new ArrayList<>();
-    public static List<Categoria> categorias = new ArrayList<>();
     public static List<ItemMenu> items = new ArrayList<>();
     public static List<Insumo> insumos = new ArrayList<>();
+    
     
     public static void precargar(){
         //insumos 
@@ -59,9 +59,9 @@ public class DatosPrueba {
        Categoria entrada = new Categoria("Entrada");
        Categoria principal = new Categoria("Plato Principal");
        Categoria bebida = new Categoria("Bebida");
-       categorias.add(entrada);
-       categorias.add(principal);
-       categorias.add(bebida);
+       Fachada.getInstancia().agregarCategoria(entrada);
+       Fachada.getInstancia().agregarCategoria(principal);
+       Fachada.getInstancia().agregarCategoria(bebida);
        
        //Items e ingredientes
        ItemMenu milanesa = new ItemMenu("Mila con fritas", 450.0, cocina, principal);
@@ -92,8 +92,8 @@ public class DatosPrueba {
        
        // dispositivos
        
-       for(int i = 1; i<=5; i++){
-           dispositivos.add(new Dispositivo(i));//dispositivo Disponible por defecto
+       for(int i = 1; i<=10; i++){
+           Fachada.getInstancia().agregarDispositivo();//dispositivo Disponible por defecto
        }
        
         

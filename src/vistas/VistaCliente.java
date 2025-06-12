@@ -4,13 +4,16 @@
  */
 package vistas;
 
+import dominio.Categoria;
+import java.util.ArrayList;
+
 /**
  *
  * @author marti
  */
-public interface VistaLoginCliente {
+public interface VistaCliente {
        
-    public void cargarCategorias();
+    public void cargarCategorias(ArrayList<Categoria> categorias);
     
     public void cargarItems();
     

@@ -2,9 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dominio;
+package logica;
 
+import dominio.Categoria;
+import dominio.Cliente;
+import dominio.Gestor;
+import dominio.UnidadProcesadora;
 import excepciones.PollomorfismoException;
+import java.util.ArrayList;
 import observador.Observable;
 
 /**
@@ -16,6 +21,10 @@ public class Fachada extends Observable{
     public enum eventos {loginCliente, loginGestor};
     
     private SistemaAcceso sAcceso = new SistemaAcceso();
+    
+    private SistemaDispositivos sDispositivos = new SistemaDispositivos();
+    
+    private SistemaMenu sMenu = new SistemaMenu();
     
     private static Fachada instancia = new Fachada();
 
@@ -36,14 +45,38 @@ public class Fachada extends Observable{
     
     public void agregarGestor(String password, String nombreCompleto, String nombreUsuario, UnidadProcesadora unidadProcesadora){
         sAcceso.agregarGestor(password, nombreCompleto, nombreUsuario, unidadProcesadora);
+    }    
+    
+    public void agregarDispositivo(){
+        sDispositivos.agregarDispositivo();
+    }
+    
+    public void agregarCategoria(Categoria cat){
+        sMenu.agregarCategoria(cat);
     }
     
     public Cliente loginCliente(String id, String password) throws PollomorfismoException{
-        return sAcceso.loginCliente(id,password);
+        Cliente cliente = sAcceso.loginCliente(id, password);
+        if(cliente.getDispositivo() != null) throw new PollomorfismoException("Ud. ya está identificado en otro dispositivo.");
+        sDispositivos.asignarDispositivoDisponible(cliente);
+        //no entiendo con nuestro modelo como un cliente se puede loguear en un dispositivo que ya esta asignado a otro cliente
+        return cliente;
     }
     
     public Gestor loginGestor(String nomUsuario, String password) throws PollomorfismoException{
         return sAcceso.loginGestor(nomUsuario,password);
+    }
+    
+    public ArrayList<Categoria> getCategorias(){
+        return sMenu.getCategorias();
+    }
+    
+    public ArrayList<Cliente> getClientes(){
+        return sAcceso.getClientes();
+    }
+    
+    public ArrayList<Gestor> getGestores(){
+        return sAcceso.getGestores();
     }
 
 }

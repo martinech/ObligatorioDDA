@@ -10,9 +10,9 @@ package dominio;
  */
 public class Cliente extends Usuario{
     
-    private String id;
-    
     private Dispositivo dispositivo;
+    
+    private String id;
 
     public Cliente(String id, String password, String nombreCompleto) {
         super(password, nombreCompleto);
@@ -37,7 +37,6 @@ public class Cliente extends Usuario{
     public void setDispositivo(Dispositivo dispositivo) {
         this.dispositivo = dispositivo;
     }
-    
     
     
     @Override

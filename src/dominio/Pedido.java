@@ -17,6 +17,11 @@ public class Pedido {
     private EstadoPedido estado;
     
     private ArrayList<ItemMenu> items;
+    
+    public Pedido(String comentario, ItemMenu item){
+        this.comentario = comentario;
+        items.add(item);
+    }
 
     public String getComentario() {
         return comentario;

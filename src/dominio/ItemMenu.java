@@ -40,20 +40,15 @@ public class ItemMenu {
         this.unidadProcesadora = unidadProcesadora;
         this.categoria = categoria;
         this.ingredientes = new ArrayList<>();
-    }
+    } 
     
-    
-    
-
     public double getPrecioUnitario() {
         return precioUnitario;
     }
 
     public Categoria getCategoria() {
         return categoria;
-    }
-
-    
+    }    
     
     public String getNombre() {
         return nombre;
@@ -65,6 +60,15 @@ public class ItemMenu {
 
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
+    }
+    
+    public boolean estaDisponible(){
+        for(Ingrediente i:ingredientes){
+            if(!i.estaDisponible()){
+                return false;
+            }
+        }
+        return true;
     }
     
 }

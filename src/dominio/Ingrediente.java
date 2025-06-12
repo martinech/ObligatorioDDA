@@ -24,9 +24,7 @@ public class Ingrediente {
 
     public ItemMenu getItem() {
         return item;
-    }
-    
-    
+    } 
 
     public Insumo getInsumo() {
         return insumo;
@@ -34,6 +32,10 @@ public class Ingrediente {
 
     public int getCantidad() {
         return cantidad;
+    }
+    
+    public boolean estaDisponible(){
+        return insumo.estaDisponible();
     }
 
 }

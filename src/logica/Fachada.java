@@ -7,6 +7,7 @@ package logica;
 import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Gestor;
+import dominio.Pedido;
 import dominio.UnidadProcesadora;
 import excepciones.PollomorfismoException;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class Fachada extends Observable{
     private SistemaDispositivos sDispositivos = new SistemaDispositivos();
     
     private SistemaMenu sMenu = new SistemaMenu();
+    
+    private SistemaPedidos sPedido = new SistemaPedidos();
     
     private static Fachada instancia = new Fachada();
 
@@ -55,18 +58,24 @@ public class Fachada extends Observable{
         sMenu.agregarCategoria(cat);
     }
     
+    //movi logica para subsistema. si cliente es null toma como que las credenciales no son correctas(en la vista) falta el caso de que el usuario ya esta logueado
     public Cliente loginCliente(String id, String password) throws PollomorfismoException{
         Cliente cliente = sAcceso.loginCliente(id, password);
-        if(cliente != null) {
-            if(cliente.getDispositivo() != null) throw new PollomorfismoException("Ud. ya está identificado en otro dispositivo.");
-            sDispositivos.asignarDispositivoDisponible(cliente);
-        }        
+        sDispositivos.asignarDispositivoDisponible(cliente);
         //no entiendo con nuestro modelo como un cliente se puede loguear en un dispositivo que ya esta asignado a otro cliente
         return cliente;
     }
     
     public Gestor loginGestor(String nomUsuario, String password) throws PollomorfismoException{
         return sAcceso.loginGestor(nomUsuario,password);
+    }
+    
+    public void comenzarServicio(Cliente cliente){
+        sPedido.comenzarServicio(cliente);
+    }
+    
+    public void agregarPedidoAServicioCliente(Cliente cliente, Pedido pedido){
+        sPedido.agregarPedidoAServicioCliente(cliente, pedido);
     }
     
     public ArrayList<Categoria> getCategorias(){

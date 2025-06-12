@@ -5,26 +5,40 @@
 package IU;
 
 import controladores.ControladorLoginCliente;
+import controladores.ControladorRealizarPedido;
 import dominio.Categoria;
 import dominio.Cliente;
+import dominio.ItemMenu;
+import dominio.Pedido;
+import dominio.Servicio;
 import java.util.ArrayList;
 import logica.Fachada;
 import vistas.VistaCliente;
+import vistas.VistaRealizarPedido;
 
 /**
  *
  * @author marti
  */
-public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
+public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, VistaRealizarPedido{
 
-    private ControladorLoginCliente controlador;
+    private ControladorLoginCliente controladorLogin;
+    
+    private ControladorRealizarPedido controladorPedido;
     
     private ArrayList<Categoria> categorias;
+    
+    private Categoria categoriaActual;
+    
+    private Servicio servicio;
+    
+    private Cliente cliente;//esto esta bien?
     
     public VentanaCliente(MenuDesarrollo padre) {
         initComponents();
         setLocationRelativeTo(padre);
-        controlador = new ControladorLoginCliente(this);
+        controladorLogin = new ControladorLoginCliente(this);
+        controladorPedido = new ControladorRealizarPedido(this);
         this.setTitle("Esperando Acceso...");
     }
 
@@ -54,7 +68,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
         txtMensaje = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cbxItems = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtComentario = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -67,9 +80,14 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
         jLabel10 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         labelMensajeLogin = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listaItems = new javax.swing.JList();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -99,6 +117,11 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
 
         btnAgregarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgregarPedido.setText("Agregar Pedido");
+        btnAgregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPedidoActionPerformed(evt);
+            }
+        });
 
         btnEliminarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminarPedido.setText("Eliminar Pedido");
@@ -120,13 +143,16 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Categorías");
 
-        cbxItems.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         txtComentario.setColumns(20);
         txtComentario.setRows(5);
         jScrollPane3.setViewportView(txtComentario);
 
         listaCategorias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        listaCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaCategoriasValueChanged(evt);
+            }
+        });
         jScrollPane4.setViewportView(listaCategorias);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -154,6 +180,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
 
         labelMensajeLogin.setText("INGRESE NÚMERO DE CLIENTE Y CONTRASEÑA");
 
+        jScrollPane5.setViewportView(listaItems);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,15 +203,14 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(btnAgregarPedido)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnEliminarPedido)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(btnEliminarPedido))
+                                        .addComponent(jLabel10))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel7)
-                                        .addGap(252, 252, 252))
-                                    .addComponent(cbxItems, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(52, 52, 52))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,12 +254,12 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
                         .addComponent(jLabel2)
                         .addGap(38, 38, 38)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(107, 107, 107)
+                        .addGap(98, 98, 98)
                         .addComponent(btnLogin))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
                         .addComponent(labelMensajeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,18 +284,20 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(cbxItems, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(8, 8, 8)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,12 +335,14 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String numCliente = txtNumeroCliente.getText();
         String password = txtPassword.getText();
-        Cliente cliente = controlador.loginCliente(numCliente, password);
+        Cliente cliente = controladorLogin.loginCliente(numCliente, password);
         if (cliente==null){ // No se pudo loguear
             mostrarError("CREDENCIALES INCORRECTAS");
         } else{
+            this.cliente = cliente; //esto esta bien?
             cargarCategorias(Fachada.getInstancia().getCategorias());
             labelMensajeLogin.setText("LOGIN EXITOSO: " + cliente.getNombreCompleto());
+            controladorPedido.comenzarServicio(cliente);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -323,6 +354,23 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
         
     }//GEN-LAST:event_formWindowOpened
 
+    private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
+        int catIndice = listaCategorias.getSelectedIndex();
+        categoriaActual = Fachada.getInstancia().getCategorias().get(catIndice);
+        cargarItemsCategoria(categoriaActual);
+    }//GEN-LAST:event_listaCategoriasValueChanged
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
+        String comentario = txtComentario.getSelectedText();
+        ItemMenu item = categoriaActual.getItemsMenu().get(listaItems.getSelectedIndex());
+        Pedido pedido = new Pedido(comentario,item);
+        controladorPedido.agregarPedido(cliente, pedido);
+    }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPedido;
@@ -330,7 +378,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
     private javax.swing.JButton btnEliminarPedido;
     private javax.swing.JButton btnFinalizarServicios;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox cbxItems;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -344,11 +391,13 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel labelMensajeLogin;
     private javax.swing.JList listaCategorias;
+    private javax.swing.JList listaItems;
     private javax.swing.JTable tblPedido;
     private javax.swing.JTextArea txtComentario;
     private javax.swing.JTextArea txtMensaje;
@@ -379,5 +428,16 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente {
     @Override
     public void mostrarError(String message) {
         labelMensajeLogin.setText(message);
+    }
+
+    @Override
+    public void cargarItemsCategoria(Categoria categoria) {
+        ArrayList<ItemMenu> items = categoria.getItemsMenu();
+        ArrayList<String> itemsString = new ArrayList();
+        for(ItemMenu i:items){
+            if(i.estaDisponible()) itemsString.add(i.getNombre() + " - $" + i.getPrecioUnitario());            
+        }
+        listaItems.setListData(itemsString.toArray());
+        
     }
 }

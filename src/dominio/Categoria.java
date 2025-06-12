@@ -15,7 +15,7 @@ public class Categoria {
     
     private String nombre;
     
-    private List<ItemMenu> itemsMenu = new ArrayList<>();
+    private ArrayList<ItemMenu> itemsMenu = new ArrayList<>();
 
     public Categoria(String nombre, ArrayList<ItemMenu> itemsMenu) {
         this.nombre = nombre;
@@ -30,8 +30,8 @@ public class Categoria {
         return nombre;
     }
 
-    public List<ItemMenu> getItemsMenu() {
+    public ArrayList<ItemMenu> getItemsMenu() {
         return itemsMenu;
     }  
-    
+
 }

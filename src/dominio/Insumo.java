@@ -30,10 +30,6 @@ public class Insumo {
     public List<Ingrediente> getIngredientes() {
         return ingredientes;
     }
-
-    
-    
-    
     
     public String getNombre() {
         return nombre;
@@ -47,4 +43,7 @@ public class Insumo {
         return stockAct;
     }
     
+    public boolean estaDisponible(){
+        return stockAct>stockMin;
+    }
 }

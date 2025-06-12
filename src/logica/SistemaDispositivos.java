@@ -23,7 +23,9 @@ public class SistemaDispositivos {
     }
 
     void asignarDispositivoDisponible(Cliente cliente) throws PollomorfismoException {
-        for(Dispositivo d:dispositivos){
+        if(cliente != null){
+            if(cliente.getDispositivo() != null) throw new PollomorfismoException("Ud. ya está identificado en otro dispositivo.");
+            for(Dispositivo d:dispositivos){
             if (d.getEstado() == EstadoDispositivo.DISPONIBLE){
                 cliente.setDispositivo(d);
                 d.setEstado(EstadoDispositivo.OCUPADO);
@@ -31,6 +33,7 @@ public class SistemaDispositivos {
             }
         }
         throw new PollomorfismoException("No quedan dispositivos disponibles");
+        }
     }
 
     

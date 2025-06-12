@@ -17,7 +17,7 @@ public interface VistaCliente {
     
     public void cargarItems();
     
-    public void cargarPedidos();
+    public void cargarPedidos(); //esto lo tiene que hacer la vista cliente tambien? o solo VistaRealizarPedido
 
     public void mostrarError(String message);
     

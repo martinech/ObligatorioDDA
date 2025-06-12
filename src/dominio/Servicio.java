@@ -4,16 +4,30 @@
  */
 package dominio;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author marti
  */
 public class Servicio {
     
-    private int id;
+    private Cliente cliente;
+    
+    private static int contador = 1;
+    
+    static int id;
     
     private double total;
 
+    private ArrayList<Pedido> pedidos;
+
+    public Servicio(Cliente cliente) {
+        this.cliente = cliente;
+        this.id = contador++;
+        this.total = 0;
+    }
+    
     public int getId() {
         return id;
     }
@@ -21,5 +35,14 @@ public class Servicio {
     public double getTotal() {
         return total;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }  
+    
+    public void agregarPedido(Pedido pedido){
+        pedidos.add(pedido);
+    }
+    
 
 }

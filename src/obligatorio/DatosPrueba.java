@@ -36,7 +36,7 @@ public class DatosPrueba {
         insumos.add(papa);
         Insumo carne = new Insumo("Carne", 5 , 30);
         insumos.add(carne);
-        Insumo hielo = new Insumo("Hielo", 50 , 200);
+        Insumo hielo = new Insumo("Hielo", 50 , 49);
         insumos.add(hielo);
         
         //unidades procesadoras

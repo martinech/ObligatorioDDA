@@ -57,8 +57,10 @@ public class Fachada extends Observable{
     
     public Cliente loginCliente(String id, String password) throws PollomorfismoException{
         Cliente cliente = sAcceso.loginCliente(id, password);
-        if(cliente.getDispositivo() != null) throw new PollomorfismoException("Ud. ya está identificado en otro dispositivo.");
-        sDispositivos.asignarDispositivoDisponible(cliente);
+        if(cliente != null) {
+            if(cliente.getDispositivo() != null) throw new PollomorfismoException("Ud. ya está identificado en otro dispositivo.");
+            sDispositivos.asignarDispositivoDisponible(cliente);
+        }        
         //no entiendo con nuestro modelo como un cliente se puede loguear en un dispositivo que ya esta asignado a otro cliente
         return cliente;
     }

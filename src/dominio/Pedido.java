@@ -16,7 +16,7 @@ public class Pedido {
     
     private EstadoPedido estado;
     
-    private ArrayList<ItemMenu> items;
+    private ArrayList<ItemMenu> items = new ArrayList();
     
     public Pedido(String comentario, ItemMenu item){
         this.comentario = comentario;

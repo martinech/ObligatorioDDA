@@ -8,6 +8,7 @@ import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Gestor;
 import dominio.Pedido;
+import dominio.Servicio;
 import dominio.UnidadProcesadora;
 import excepciones.PollomorfismoException;
 import java.util.ArrayList;
@@ -59,19 +60,22 @@ public class Fachada extends Observable{
     }
     
     //movi logica para subsistema. si cliente es null toma como que las credenciales no son correctas(en la vista) falta el caso de que el usuario ya esta logueado
+    //no entiendo con nuestro modelo como un cliente se puede loguear en un dispositivo que ya esta asignado a otro cliente
+   
     public Cliente loginCliente(String id, String password) throws PollomorfismoException{
-        Cliente cliente = sAcceso.loginCliente(id, password);
-        sDispositivos.asignarDispositivoDisponible(cliente);
-        //no entiendo con nuestro modelo como un cliente se puede loguear en un dispositivo que ya esta asignado a otro cliente
-        return cliente;
+        return sAcceso.loginCliente(id, password);
     }
     
     public Gestor loginGestor(String nomUsuario, String password) throws PollomorfismoException{
         return sAcceso.loginGestor(nomUsuario,password);
     }
     
-    public void comenzarServicio(Cliente cliente){
-        sPedido.comenzarServicio(cliente);
+    public void asignarDispositivoDisponible(Cliente cliente) throws PollomorfismoException{
+        sDispositivos.asignarDispositivoDisponible(cliente);
+    }
+    
+    public Servicio comenzarServicio(Cliente cliente){
+        return sPedido.comenzarServicio(cliente);
     }
     
     public void agregarPedidoAServicioCliente(Cliente cliente, Pedido pedido){

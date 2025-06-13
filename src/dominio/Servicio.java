@@ -39,6 +39,10 @@ public class Servicio {
     public Cliente getCliente() {
         return cliente;
     }  
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     
     public void agregarPedido(Pedido pedido){
         pedidos.add(pedido);

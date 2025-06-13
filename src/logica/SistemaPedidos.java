@@ -18,10 +18,12 @@ public class SistemaPedidos {
     
     private ArrayList<Servicio> servicios = new ArrayList();
     
-    public void comenzarServicio(Cliente cliente){
+    public Servicio comenzarServicio(Cliente cliente){
         Servicio servicio = new Servicio(cliente);
+        return servicio;
     }   
     
+    //no es lo mas performante que se recorran todos los servicios para agregar el pedido capaz se le puede pasar el servicio.
     public void agregarPedidoAServicioCliente(Cliente cliente, Pedido pedido){
         for(Servicio s:servicios){
             if(s.getCliente() == cliente){

@@ -42,15 +42,13 @@ public class ControladorLoginCliente implements Observador{
         }
     }
 
-    public Cliente loginCliente(String numCliente, String password) {
+    public void loginCliente(String numCliente, String password) {
         try{
-            return Fachada.getInstancia().loginCliente(numCliente, password);
+            Cliente cliente = Fachada.getInstancia().loginCliente(numCliente, password);
+            vista.loginExitoso(cliente);
         } catch (PollomorfismoException e){
             vista.mostrarError(e.getMessage());
-            return null;
         }
     }
-    
-    
     
 }

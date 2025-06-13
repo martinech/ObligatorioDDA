@@ -32,8 +32,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     
     private Servicio servicio;
     
-    private Cliente cliente;//esto esta bien?
-    
     public VentanaCliente(MenuDesarrollo padre) {
         initComponents();
         setLocationRelativeTo(padre);
@@ -335,15 +333,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String numCliente = txtNumeroCliente.getText();
         String password = txtPassword.getText();
-        Cliente cliente = controladorLogin.loginCliente(numCliente, password);
-        if (cliente==null){ // No se pudo loguear
-            mostrarError("CREDENCIALES INCORRECTAS");
-        } else{
-            this.cliente = cliente; //esto esta bien?
-            cargarCategorias(Fachada.getInstancia().getCategorias());
-            labelMensajeLogin.setText("LOGIN EXITOSO: " + cliente.getNombreCompleto());
-            controladorPedido.comenzarServicio(cliente);
-        }
+        controladorLogin.loginCliente(numCliente, password);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnConfirmarPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidosActionPerformed
@@ -368,7 +358,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         String comentario = txtComentario.getSelectedText();
         ItemMenu item = categoriaActual.getItemsMenu().get(listaItems.getSelectedIndex());
         Pedido pedido = new Pedido(comentario,item);
-        controladorPedido.agregarPedido(cliente, pedido);
+        controladorPedido.agregarPedido(servicio.getCliente(), pedido);
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
 
 
@@ -416,13 +406,17 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     }
 
     @Override
-    public void cargarItems() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void cargarPedidos() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    } 
+    
+    @Override
+    public void loginExitoso(Cliente cliente) {
+        Servicio servicio = Fachada.getInstancia().comenzarServicio(cliente);
+        this.servicio = servicio;
+        labelMensajeLogin.setText("Bienvenido - " + cliente.getNombreCompleto());
+        setTitle("Bienvenido - "+ cliente.getNombreCompleto());
+        cargarCategorias(Fachada.getInstancia().getCategorias());
     }
 
     @Override

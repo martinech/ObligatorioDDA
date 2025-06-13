@@ -5,6 +5,7 @@
 package vistas;
 
 import dominio.Categoria;
+import dominio.Cliente;
 import java.util.ArrayList;
 
 /**
@@ -14,10 +15,10 @@ import java.util.ArrayList;
 public interface VistaCliente {
        
     public void cargarCategorias(ArrayList<Categoria> categorias);
-    
-    public void cargarItems();
-    
+        
     public void cargarPedidos(); //esto lo tiene que hacer la vista cliente tambien? o solo VistaRealizarPedido
+    
+    public void loginExitoso(Cliente cliente);
 
     public void mostrarError(String message);
     

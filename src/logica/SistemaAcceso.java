@@ -32,7 +32,9 @@ public class SistemaAcceso {
     }
     
     public Cliente loginCliente(String id, String password) throws PollomorfismoException {
-        Cliente unCliente = (Cliente)this.buscarUsuario(id, password, clientes);        
+        Cliente unCliente = (Cliente)this.buscarUsuario(id, password, clientes);
+        Fachada.getInstancia().asignarDispositivoDisponible(unCliente);
+        Fachada.getInstancia().avisar(Fachada.eventos.loginCliente);
         return unCliente;
     }
     

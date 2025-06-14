@@ -358,7 +358,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         String comentario = txtComentario.getSelectedText();
         ItemMenu item = categoriaActual.getItemsMenu().get(listaItems.getSelectedIndex());
         Pedido pedido = new Pedido(comentario,item);
-        controladorPedido.agregarPedido(servicio.getCliente(), pedido);
+        controladorPedido.agregarPedido(servicio, pedido);
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
 
 
@@ -434,4 +434,28 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         listaItems.setListData(itemsString.toArray());
         
     }
+    
+    
+    @Override
+public void mostrarPedidosServicio(ArrayList<Pedido> pedidos) {
+    // Esto puede cambiar según cómo quieras mostrar los pedidos
+    // Por ejemplo, usando una JTable
+
+    String[] columnas = {"Ítem", "Comentario", "Estado", "Unidad Procesadora", "Gestor", "Precio"};
+    String[][] datos = new String[pedidos.size()][6];
+
+    for (int i = 0; i < pedidos.size(); i++) {
+        Pedido p = pedidos.get(i);
+        datos[i][0] = p.getItem().getNombre();
+        datos[i][1] = p.getComentario();
+        datos[i][2] = p.getEstado().toString();
+        datos[i][3] = p.getItem().getUnidadProcesadora().getNombre();
+        datos[i][4] = (p.getGestor() != null) ? p.getGestor().getNombreCompleto() : "Sin asignar";
+        datos[i][5] = "$" + p.getItem().getPrecioUnitario();
+    }
+
+    tblPedido.setModel(new javax.swing.table.DefaultTableModel(datos, columnas));
+}
+    
+    
 }

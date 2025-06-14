@@ -13,14 +13,15 @@ import java.util.ArrayList;
 public class Pedido {
     
     private String comentario;
+    private EstadoPedido estado = EstadoPedido.NO_CONFIRMADO; 
+    private ItemMenu item;
+    private Gestor gestor;
+    private UnidadProcesadora unidadProcesadora;
     
-    private EstadoPedido estado;
-    
-    private ArrayList<ItemMenu> items = new ArrayList();
     
     public Pedido(String comentario, ItemMenu item){
         this.comentario = comentario;
-        items.add(item);
+        this.item = item; 
     }
 
     public String getComentario() {
@@ -31,8 +32,21 @@ public class Pedido {
         return estado;
     }
 
-    public ArrayList<ItemMenu> getItems() {
-        return items;
+    public ItemMenu getItem() {
+        return item;
     }
+
+    public Gestor getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(Gestor gestor){
+        this.gestor = gestor;
+    }
+    
+    public UnidadProcesadora getUnidadProcesadora() {
+        return unidadProcesadora;
+    }
+    
     
 }

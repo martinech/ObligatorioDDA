@@ -33,6 +33,15 @@ public class SistemaAcceso {
     
     public Cliente loginCliente(String id, String password) throws PollomorfismoException {
         Cliente unCliente = (Cliente)this.buscarUsuario(id, password, clientes);
+        if(unCliente == null){
+            throw new PollomorfismoException("Credenciales incrrectas.");
+        }
+        
+        //verificamos si esta logueado
+        if(Fachada.getInstancia().clienteYaIdentificado(unCliente)){
+            throw new PollomorfismoException("Ud. ya esta identificado en otro dispositivo.");
+        }
+        
         Fachada.getInstancia().asignarDispositivoDisponible(unCliente);
         Fachada.getInstancia().avisar(Fachada.eventos.loginCliente);
         return unCliente;

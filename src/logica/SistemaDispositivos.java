@@ -36,5 +36,12 @@ public class SistemaDispositivos {
         }
     }
 
-    
+    public boolean estaClienteActivo(Cliente cliente){
+        for(Dispositivo d : dispositivos){
+            if(d.getEstado() == EstadoDispositivo.OCUPADO && cliente.equals(d.getCliente())){
+            return true;
+            }
+        }
+        return false;
+    }
 }

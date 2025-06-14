@@ -9,6 +9,7 @@ import dominio.ItemMenu;
 import dominio.Pedido;
 import dominio.Servicio;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -18,18 +19,31 @@ public class SistemaPedidos {
     
     private ArrayList<Servicio> servicios = new ArrayList();
     
+    private HashMap<Cliente, Servicio> serviciosActivos = new HashMap<>();
+    
     public Servicio comenzarServicio(Cliente cliente){
         Servicio servicio = new Servicio(cliente);
+        serviciosActivos.put(cliente, servicio);
         return servicio;
     }   
     
     //no es lo mas performante que se recorran todos los servicios para agregar el pedido capaz se le puede pasar el servicio.
-    public void agregarPedidoAServicioCliente(Cliente cliente, Pedido pedido){
-        for(Servicio s:servicios){
-            if(s.getCliente() == cliente){
-                s.agregarPedido(pedido);
-            }
+    //este metodo no sirve? ya sea agrega e
+    public void agregarPedidoAServicioCliente(Servicio servicio, Pedido pedido){
+        servicio.agregarPedido(pedido);
+    }
+    
+    
+    public ArrayList<Pedido> getPedidosDelServicio(Cliente cliente){
+        Servicio servicio = serviciosActivos.get(cliente);
+        if(servicio == null){
+            return new ArrayList<>(); // o lanzo excepcion
         }
+        return servicio.getPedidos();
+    }
+    
+    public void finalizarServicio(Cliente cliente){
+        serviciosActivos.remove(cliente);
     }
     
 }

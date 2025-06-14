@@ -6,6 +6,7 @@ package vistas;
 
 import dominio.Categoria;
 import dominio.Cliente;
+import dominio.Pedido;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,7 @@ public interface VistaCliente {
        
     public void cargarCategorias(ArrayList<Categoria> categorias);
         
-    public void cargarPedidos(); //esto lo tiene que hacer la vista cliente tambien? o solo VistaRealizarPedido
+    public void mostrarPedidosServicio(ArrayList<Pedido> pedidos);
     
     public void loginExitoso(Cliente cliente);
 

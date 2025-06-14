@@ -45,7 +45,10 @@ public class ControladorLoginCliente implements Observador{
     public void loginCliente(String numCliente, String password) {
         try{
             Cliente cliente = Fachada.getInstancia().loginCliente(numCliente, password);
+            Fachada.getInstancia().comenzarServicio(cliente);
             vista.loginExitoso(cliente);
+            vista.cargarCategorias(Fachada.getInstancia().getCategorias());
+            vista.mostrarPedidosServicio(Fachada.getInstancia().getPedidosDelServicio(cliente));
         } catch (PollomorfismoException e){
             vista.mostrarError(e.getMessage());
         }

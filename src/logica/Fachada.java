@@ -78,8 +78,8 @@ public class Fachada extends Observable{
         return sPedido.comenzarServicio(cliente);
     }
     
-    public void agregarPedidoAServicioCliente(Cliente cliente, Pedido pedido){
-        sPedido.agregarPedidoAServicioCliente(cliente, pedido);
+    public void agregarPedidoAServicioCliente(Servicio servicio, Pedido pedido){
+        sPedido.agregarPedidoAServicioCliente(servicio, pedido);
     }
     
     public ArrayList<Categoria> getCategorias(){
@@ -93,5 +93,13 @@ public class Fachada extends Observable{
     public ArrayList<Gestor> getGestores(){
         return sAcceso.getGestores();
     }
+    
+    public ArrayList<Pedido> getPedidosDelServicio(Cliente cliente){
+        return sPedido.getPedidosDelServicio(cliente);
+    }
+    
+    public boolean clienteYaIdentificado(Cliente cliente) {
+    return sDispositivos.estaClienteActivo(cliente);
+}
 
 }

@@ -26,6 +26,7 @@ public class Servicio {
         this.cliente = cliente;
         this.id = contador++;
         this.total = 0;
+        this.pedidos = new  ArrayList<>();
     }
     
     public int getId() {
@@ -39,6 +40,16 @@ public class Servicio {
     public Cliente getCliente() {
         return cliente;
     }  
+
+    public static int getContador() {
+        return contador;
+    }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+    
+    
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;

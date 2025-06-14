@@ -6,6 +6,7 @@ package controladores;
 
 import dominio.Cliente;
 import dominio.Pedido;
+import dominio.Servicio;
 import logica.Fachada;
 import observador.Observable;
 import observador.Observador;
@@ -40,8 +41,8 @@ public class ControladorRealizarPedido implements Observador{
         //if(evento == Fachada.eventos.)
     }
 
-    public void agregarPedido(Cliente cliente, Pedido pedido) {
-        Fachada.getInstancia().agregarPedidoAServicioCliente(cliente, pedido);
+    public void agregarPedido(Servicio servicio, Pedido pedido) {
+        Fachada.getInstancia().agregarPedidoAServicioCliente(servicio, pedido);
     }
     
     public void comenzarServicio(Cliente cliente){

@@ -15,6 +15,8 @@ public class Dispositivo {
     private int id;
     
     private EstadoDispositivo estado;
+    
+    private Cliente cliente;
 
     public Dispositivo() {
         this.id = contador++;
@@ -31,6 +33,14 @@ public class Dispositivo {
 
     public void setEstado(EstadoDispositivo estado) {
         this.estado = estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
     
     

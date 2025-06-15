@@ -4,13 +4,17 @@
  */
 package dominio;
 
+import excepciones.PollomorfismoException;
 import java.util.ArrayList;
+import observador.Observable;
 
 /**
  *
  * @author marti
  */
-public class Servicio {
+public class Servicio extends Observable{
+    
+    public enum eventos{nuevoPedido, pedidoEliminado};
     
     private Cliente cliente;
     
@@ -49,15 +53,23 @@ public class Servicio {
         return pedidos;
     }
     
-    
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
     
     public void agregarPedido(Pedido pedido){
         pedidos.add(pedido);
+        this.avisar(Servicio.eventos.nuevoPedido);
     }
     
-
+    public void eliminarPedido(int pos) throws PollomorfismoException{
+        Pedido pSeleccionado = pedidos.get(pos);
+        if(pSeleccionado.esEliminable()){
+            pedidos.remove(pSeleccionado);
+            this.avisar(Servicio.eventos.pedidoEliminado);
+        } else {
+            throw new PollomorfismoException("Un poco tarde…Ya estamos elaborando este pedido!");
+        }
+        
+    }
 }

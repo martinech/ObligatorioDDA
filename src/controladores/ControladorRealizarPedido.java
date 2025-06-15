@@ -7,10 +7,11 @@ package controladores;
 import dominio.Cliente;
 import dominio.Pedido;
 import dominio.Servicio;
+import excepciones.PollomorfismoException;
 import logica.Fachada;
 import observador.Observable;
 import observador.Observador;
-import vistas.VistaRealizarPedido;
+import vistas.VistaCliente;
 
 /*
 ///CONTROLADOR -> IMPLEMENTS Observador///
@@ -28,25 +29,42 @@ import vistas.VistaRealizarPedido;
 
 public class ControladorRealizarPedido implements Observador{
     
-    private VistaRealizarPedido vista;
+    private VistaCliente vista;
     
-    public ControladorRealizarPedido(VistaRealizarPedido v){
+    private Servicio servicio;
+    
+    public ControladorRealizarPedido(VistaCliente v, Servicio s){
         this.vista = v;
-        Fachada.getInstancia().agregarObservador(this);
+        this.servicio = s;
+        servicio.agregarObservador(this);
         
     }
 
     @Override
     public void actualizar(Observable origen, Object evento) {
-        //if(evento == Fachada.eventos.)
+        if (evento == Servicio.eventos.nuevoPedido) {            
+            vista.mostrarPedidosServicio(servicio.getPedidos());            
+        }
+        if (evento == Servicio.eventos.pedidoEliminado){
+            vista.mostrarPedidosServicio(servicio.getPedidos());
+        }
     }
 
-    public void agregarPedido(Servicio servicio, Pedido pedido) {
+    public void agregarPedido(Pedido pedido) {
         Fachada.getInstancia().agregarPedidoAServicioCliente(servicio, pedido);
     }
     
     public void comenzarServicio(Cliente cliente){
         Fachada.getInstancia().comenzarServicio(cliente);
+    }
+
+    public void eliminarPedido(int pos) {
+        try{
+            servicio.eliminarPedido(pos);
+        } catch (PollomorfismoException e){
+            vista.mostrarError(e.getMessage());
+        }
+        
     }
     
 }

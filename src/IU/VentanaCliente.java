@@ -14,13 +14,12 @@ import dominio.Servicio;
 import java.util.ArrayList;
 import logica.Fachada;
 import vistas.VistaCliente;
-import vistas.VistaRealizarPedido;
 
 /**
  *
  * @author marti
  */
-public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, VistaRealizarPedido{
+public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
 
     private ControladorLoginCliente controladorLogin;
     
@@ -32,11 +31,10 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     
     private Servicio servicio;
     
-    public VentanaCliente(MenuDesarrollo padre) {
+    public VentanaCliente(MenuDesarrollo padre, Servicio s) {
         initComponents();
         setLocationRelativeTo(padre);
         controladorLogin = new ControladorLoginCliente(this);
-        controladorPedido = new ControladorRealizarPedido(this);
         this.setTitle("Esperando Acceso...");
     }
 
@@ -62,8 +60,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         jSeparator3 = new javax.swing.JSeparator();
         txtMontoTotal = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtMensaje = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -77,11 +73,11 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         btnFinalizarServicios = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        labelMensajeLogin = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         listaItems = new javax.swing.JList();
+        txtMensaje = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -123,17 +119,17 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
 
         btnEliminarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEliminarPedido.setText("Eliminar Pedido");
+        btnEliminarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPedidoActionPerformed(evt);
+            }
+        });
 
         txtMontoTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMontoTotal.setText("Monto total: $0");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Mensajes del sistema");
-
-        txtMensaje.setColumns(20);
-        txtMensaje.setRows(5);
-        txtMensaje.setText("Mensaje del sistema aqui...");
-        jScrollPane2.setViewportView(txtMensaje);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Identificarse");
@@ -176,9 +172,10 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Comentario");
 
-        labelMensajeLogin.setText("INGRESE NÚMERO DE CLIENTE Y CONTRASEÑA");
-
         jScrollPane5.setViewportView(listaItems);
+
+        txtMensaje.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtMensaje.setText("Ingrese su número de cliente y contraseña");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,12 +210,6 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 1191, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -226,7 +217,16 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnConfirmarPedidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnFinalizarServicios)))))
+                                .addComponent(btnFinalizarServicios))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 1191, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 1161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -245,18 +245,13 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
                 .addGap(148, 148, 148)
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2)
-                        .addGap(38, 38, 38)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98)
-                        .addComponent(btnLogin))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(labelMensajeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(txtNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2)
+                .addGap(38, 38, 38)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(btnLogin)
                 .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -276,9 +271,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
                             .addComponent(jLabel2)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLogin))))
-                .addGap(18, 18, 18)
-                .addComponent(labelMensajeLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,8 +312,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -355,11 +348,33 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     }//GEN-LAST:event_formWindowClosing
 
     private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
-        String comentario = txtComentario.getSelectedText();
-        ItemMenu item = categoriaActual.getItemsMenu().get(listaItems.getSelectedIndex());
-        Pedido pedido = new Pedido(comentario,item);
-        controladorPedido.agregarPedido(servicio, pedido);
+        int pos = listaItems.getSelectedIndex();
+        if(controladorPedido != null){
+            if(pos!=-1){
+                String comentario = txtComentario.getText();
+                ItemMenu item = categoriaActual.getItemsMenu().get(listaItems.getSelectedIndex());
+                Pedido pedido = new Pedido(comentario,item);
+                controladorPedido.agregarPedido(pedido);
+            } else{
+                mostrarError("Debe seleccionar un item.");
+            }
+        } else{
+            mostrarError("Debe identificarse antes de realizar pedidos.");
+        }
+        
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
+    private void btnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPedidoActionPerformed
+        int pos = tblPedido.getSelectedRow();
+        if(controladorPedido != null){
+            if(pos!=-1){
+            controladorPedido.eliminarPedido(pos);            
+            }
+            mostrarError("Debe seleccionar un pedido.");
+        }else{
+            mostrarError("Debe identificarse antes de eliminar pedidos."); 
+        }       
+    }//GEN-LAST:event_btnEliminarPedidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -378,19 +393,17 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JLabel labelMensajeLogin;
     private javax.swing.JList listaCategorias;
     private javax.swing.JList listaItems;
     private javax.swing.JTable tblPedido;
     private javax.swing.JTextArea txtComentario;
-    private javax.swing.JTextArea txtMensaje;
+    private javax.swing.JLabel txtMensaje;
     private javax.swing.JLabel txtMontoTotal;
     private javax.swing.JTextField txtNumeroCliente;
     private javax.swing.JPasswordField txtPassword;
@@ -404,24 +417,20 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
         }
         listaCategorias.setListData(categoriasString.toArray());
     }
-
-    @Override
-    public void cargarPedidos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    } 
     
     @Override
     public void loginExitoso(Cliente cliente) {
         Servicio servicio = Fachada.getInstancia().comenzarServicio(cliente);
         this.servicio = servicio;
-        labelMensajeLogin.setText("Bienvenido - " + cliente.getNombreCompleto());
-        setTitle("Bienvenido - "+ cliente.getNombreCompleto());
+        controladorPedido = new ControladorRealizarPedido(this, servicio);
+        txtMensaje.setText("Bienvenido - " + servicio.getCliente().getNombreCompleto());
+        setTitle("Bienvenido - "+ servicio.getCliente().getNombreCompleto());
         cargarCategorias(Fachada.getInstancia().getCategorias());
     }
 
     @Override
     public void mostrarError(String message) {
-        labelMensajeLogin.setText(message);
+        txtMensaje.setText(message);
     }
 
     @Override
@@ -437,7 +446,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente, 
     
     
     @Override
-public void mostrarPedidosServicio(ArrayList<Pedido> pedidos) {
+    public void mostrarPedidosServicio(ArrayList<Pedido> pedidos) {
     // Esto puede cambiar según cómo quieras mostrar los pedidos
     // Por ejemplo, usando una JTable
 

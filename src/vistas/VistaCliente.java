@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public interface VistaCliente {
        
     public void cargarCategorias(ArrayList<Categoria> categorias);
+    
+    public void cargarItemsCategoria(Categoria categoria);
         
     public void mostrarPedidosServicio(ArrayList<Pedido> pedidos);
     

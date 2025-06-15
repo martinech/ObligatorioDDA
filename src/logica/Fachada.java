@@ -20,7 +20,7 @@ import observador.Observable;
  */
 public class Fachada extends Observable{
     
-    public enum eventos {loginCliente, loginGestor};
+    public enum eventos {loginCliente, loginGestor, nuevoPedido};
     
     private SistemaAcceso sAcceso = new SistemaAcceso();
     

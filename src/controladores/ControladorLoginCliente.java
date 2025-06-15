@@ -30,6 +30,8 @@ public class ControladorLoginCliente implements Observador{
        
     private VistaCliente vista;
     
+    private Cliente cliente;
+    
     public ControladorLoginCliente(VistaCliente v){
         this.vista = v;
         Fachada.getInstancia().agregarObservador(this);
@@ -38,20 +40,19 @@ public class ControladorLoginCliente implements Observador{
     @Override
     public void actualizar(Observable origen, Object evento) {
         if(evento == Fachada.eventos.loginCliente){
-            vista.cargarCategorias(Fachada.getInstancia().getCategorias());
+            vista.cargarCategorias(Fachada.getInstancia().getCategorias());            
+            vista.mostrarPedidosServicio(Fachada.getInstancia().getPedidosDelServicio(cliente));
         }
     }
 
     public void loginCliente(String numCliente, String password) {
         try{
-            Cliente cliente = Fachada.getInstancia().loginCliente(numCliente, password);
-            Fachada.getInstancia().comenzarServicio(cliente);
+            this.cliente = Fachada.getInstancia().loginCliente(numCliente, password);
             vista.loginExitoso(cliente);
-            vista.cargarCategorias(Fachada.getInstancia().getCategorias());
-            vista.mostrarPedidosServicio(Fachada.getInstancia().getPedidosDelServicio(cliente));
+            Fachada.getInstancia().comenzarServicio(cliente);
         } catch (PollomorfismoException e){
             vista.mostrarError(e.getMessage());
         }
     }
-    
+
 }

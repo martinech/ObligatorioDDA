@@ -11,6 +11,7 @@ package dominio;
 public enum EstadoPedido {
     NO_CONFIRMADO,
     CONFIRMADO,
+    EN_PROCESO,
     FINALIZADO,
     ENTREGADO
 }

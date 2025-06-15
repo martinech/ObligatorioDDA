@@ -21,7 +21,8 @@ public class Pedido {
     
     public Pedido(String comentario, ItemMenu item){
         this.comentario = comentario;
-        this.item = item; 
+        this.item = item;
+        this.unidadProcesadora = item.getUnidadProcesadora();
     }
 
     public String getComentario() {
@@ -46,6 +47,10 @@ public class Pedido {
     
     public UnidadProcesadora getUnidadProcesadora() {
         return unidadProcesadora;
+    }
+
+    public boolean esEliminable() {
+        return this.estado == EstadoPedido.NO_CONFIRMADO;
     }
     
     

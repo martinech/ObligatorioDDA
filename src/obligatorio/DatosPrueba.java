@@ -30,14 +30,24 @@ public class DatosPrueba {
     
     public static void precargar(){
         //insumos 
-        Insumo aceituna = new Insumo("Aceituna", 10 , 50);
-        insumos.add(aceituna);
-        Insumo papa = new Insumo("Papa", 20 , 25);
-        insumos.add(papa);
-        Insumo carne = new Insumo("Carne", 5 , 15);
-        insumos.add(carne);
-        Insumo hielo = new Insumo("Hielo", 50 , 200);
-        insumos.add(hielo);
+        Insumo papa        = new Insumo("Papa",          20,  30);
+        Insumo carneVaca   = new Insumo("Carne vacuna",   8,  15);
+        Insumo huevo       = new Insumo("Huevo",         30,  60);
+        Insumo panRallado  = new Insumo("Pan rallado",   10,  20);
+        Insumo aceite      = new Insumo("Aceite",        15,  30);
+        Insumo arrozSushi  = new Insumo("Arroz de sushi",12,  20);
+        Insumo salmon      = new Insumo("Salmón fresco",  6,  10);
+        Insumo nori        = new Insumo("Alga nori",     40,  80);
+        Insumo gin         = new Insumo("Gin",           10,  15);
+        Insumo aguaTonica  = new Insumo("Agua tónica",   20,  25);
+        Insumo limon       = new Insumo("Limón",         25,  30);
+        Insumo cafeMolido  = new Insumo("Café molido",   15,  30);
+        Insumo hielo       = new Insumo("Hielo",         50, 200);
+        Insumo aguaMineral = new Insumo("Agua mineral",  60, 100);
+
+        insumos.addAll(List.of(papa, carneVaca, huevo, panRallado, aceite,
+                               arrozSushi, salmon, nori, gin, aguaTonica,
+                               limon, cafeMolido, hielo, aguaMineral));
         
         //unidades procesadoras
        UnidadProcesadora cocina = new UnidadProcesadora("Cocina");
@@ -67,35 +77,59 @@ public class DatosPrueba {
        Fachada.getInstancia().agregarCategoria(bebida);
        
        //Items e ingredientes
-       ItemMenu milanesa = new ItemMenu("Mila con fritas", 450.0, cocina, principal);
-       milanesa.getIngredientes().add(new Ingrediente(papa,3,milanesa));
-       items.add(milanesa);
-       principal.getItemsMenu().add(milanesa);
-       cocina.getItems().add(milanesa);
+       // 1) Milanesa con papas fritas
+        ItemMenu milanesa = new ItemMenu("Milanesa con fritas", 580.0, cocina, principal);
+        milanesa.getIngredientes().add(new Ingrediente(carneVaca,  1)); // 1 unidad
+        milanesa.getIngredientes().add(new Ingrediente(huevo,      1));
+        milanesa.getIngredientes().add(new Ingrediente(panRallado, 2));
+        milanesa.getIngredientes().add(new Ingrediente(aceite,     1));
+        milanesa.getIngredientes().add(new Ingrediente(papa,       3));
+        items.add(milanesa);
+        principal.getItemsMenu().add(milanesa);
+        cocina.getItems().add(milanesa);
        
-       ItemMenu ginTonic = new ItemMenu("Gin Tonic", 280.0, bar, bebida);
-       ginTonic.getIngredientes().add(new Ingrediente(hielo, 5, ginTonic));
-       items.add(ginTonic);
-       bebida.getItemsMenu().add(ginTonic);
-       bar.getItems().add(ginTonic);
+       // 3) Gin Tonic
+        ItemMenu ginTonic = new ItemMenu("Gin Tonic", 310.0, bar, bebida);
+        ginTonic.getIngredientes().add(new Ingrediente(gin,        1));
+        ginTonic.getIngredientes().add(new Ingrediente(aguaTonica, 1));
+        ginTonic.getIngredientes().add(new Ingrediente(limon,      1));
+        ginTonic.getIngredientes().add(new Ingrediente(hielo,      3));
+        items.add(ginTonic);
+        bebida.getItemsMenu().add(ginTonic);
+        bar.getItems().add(ginTonic);
        
-       ItemMenu nigiri = new ItemMenu("Nigiri", 320.0, barraSushi, entrada);
-       nigiri.getIngredientes().add(new Ingrediente(carne, 2 ,nigiri));
-       items.add(nigiri);
-       entrada.getItemsMenu().add(nigiri);
-       barraSushi.getItems().add(nigiri);
+       // 2) Nigiri de salmón
+        ItemMenu nigiri = new ItemMenu("Nigiri de salmón", 340.0, barraSushi, entrada);
+        nigiri.getIngredientes().add(new Ingrediente(arrozSushi, 1));
+        nigiri.getIngredientes().add(new Ingrediente(salmon,     1));
+        nigiri.getIngredientes().add(new Ingrediente(nori,       1));
+        items.add(nigiri);
+        entrada.getItemsMenu().add(nigiri);
+        barraSushi.getItems().add(nigiri);
        
-       ItemMenu cafe = new ItemMenu("Café", 120.0, bar, bebida);
-       cafe.getIngredientes().add(new Ingrediente(hielo, 1, cafe));
-       items.add(cafe);
-       bebida.getItemsMenu().add(cafe);
-       bar.getItems().add(cafe);
+       // 4) Café expreso
+        ItemMenu cafe = new ItemMenu("Café expreso", 140.0, bar, bebida);
+        cafe.getIngredientes().add(new Ingrediente(cafeMolido, 1));
+        cafe.getIngredientes().add(new Ingrediente(aguaMineral,1));
+        items.add(cafe);
+        bebida.getItemsMenu().add(cafe);
+        bar.getItems().add(cafe);
 
-       ItemMenu agua = new ItemMenu("Agua mineral", 100.0, bar, bebida);
-       agua.getIngredientes().add(new Ingrediente(hielo, 1, agua));
-       items.add(agua);
-       bebida.getItemsMenu().add(agua);
-       bar.getItems().add(agua);
+       // 5) Agua mineral
+        ItemMenu agua = new ItemMenu("Agua mineral", 110.0, bar, bebida);
+        agua.getIngredientes().add(new Ingrediente(aguaMineral, 1));
+        agua.getIngredientes().add(new Ingrediente(hielo,       2));
+        items.add(agua);
+        bebida.getItemsMenu().add(agua);
+        bar.getItems().add(agua);
+        
+        // 6) Papas fritas (comparte 'papa' y 'aceite' con la milanesa)
+        ItemMenu papasFritas = new ItemMenu("Papas fritas", 250.0, cocina, entrada);
+        papasFritas.getIngredientes().add(new Ingrediente(papa,   4));
+        papasFritas.getIngredientes().add(new Ingrediente(aceite, 1));
+        items.add(papasFritas);             
+        entrada.getItemsMenu().add(papasFritas); 
+        cocina.getItems().add(papasFritas);
 
        
        //clientes

@@ -11,18 +11,6 @@ import observador.Observable;
 import observador.Observador;
 import vistas.VistaCliente;
 
-/*
-///CONTROLADOR -> IMPLEMENTS Observador///
--Constructor:
-    *Vista
-    *Objeto del dominio y/o fachada
-    *Agregarse como observador del objeto del dominio o fachada
-    *Inicializar la vista
--Eventos del usuario(click en botones, seleccionar listas, etc.)
--Codigo para inicializar la vista
--Codigo para finalizar la vista -> quitarse como observador / otros si aplica
--Responder a los eventos del modelo/fachada -> actualizar el Observador
-*/
 
 public class ControladorLoginCliente implements Observador{
        

@@ -126,13 +126,6 @@ public class Servicio extends Observable{
     
     
     public String finalizarServicio() {
-         System.out.println("DEBUG ► clase cliente = " +
-        (cliente == null ? "null" : cliente.getClass().getSimpleName()));
-
-    for (Pedido p : pedidos) {
-        System.out.println("DEBUG ► pedido = " + p.getItem().getNombre() +
-                           "  estado = " + p.getEstado());
-    }
         
         if(cliente == null){
             return "No hay cliente identificado.";

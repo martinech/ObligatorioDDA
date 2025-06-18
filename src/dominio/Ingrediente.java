@@ -14,17 +14,17 @@ public class Ingrediente {
     
     private int cantidad;
     
-    private ItemMenu item; 
+   /* private ItemMenu item; */
 
-    public Ingrediente(Insumo insumo, int cantidad, ItemMenu item) {
+    public Ingrediente(Insumo insumo, int cantidad) {
         this.insumo = insumo;
         this.cantidad = cantidad;
-        this.item = item;
+        /*this.item = item;*/
     }
 
-    public ItemMenu getItem() {
+   /* public ItemMenu getItem() {
         return item;
-    } 
+    } */
 
     public Insumo getInsumo() {
         return insumo;

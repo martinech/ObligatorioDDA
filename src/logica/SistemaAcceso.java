@@ -1,8 +1,11 @@
 
+
 package logica;
 
 import dominio.Cliente;
+import static dominio.EstadoPedido.ENTREGADO;
 import dominio.Gestor;
+import dominio.Pedido;
 import dominio.UnidadProcesadora;
 import dominio.Usuario;
 import excepciones.PollomorfismoException;
@@ -64,8 +67,14 @@ public class SistemaAcceso {
         return unGestor;
     }
     
-    public void logoutGestor(Gestor g){
+    public boolean logoutGestor(Gestor g) throws PollomorfismoException{
+        for(Pedido p: Fachada.getInstancia().getPedidosTomadosPorGestor(g)){
+            if(p.getEstado() != ENTREGADO){
+                throw new PollomorfismoException("Tiene pedidos pendientes");
+            }
+        }
         gestoresActivos.remove(g);
+        return true;
     }
     
     private Usuario buscarUsuario(String id, String psw, ArrayList lista){

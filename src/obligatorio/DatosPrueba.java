@@ -54,6 +54,9 @@ public class DatosPrueba {
        Gestor g3 = new Gestor("mateo", "sush123", "Mateo Hernandez", barraSushi);
        Fachada.getInstancia().agregarGestor("mateo", "sush123", "Mateo Hernandez", barraSushi);
        barraSushi.getGestores().add(g3);
+       Gestor g4 = new Gestor("maria", "coc123", "María González", cocina);
+       Fachada.getInstancia().agregarGestor("maria", "coc123", "María González", cocina);
+       cocina.getGestores().add(g4);
        
        //categorias
        Categoria entrada = new Categoria("Entrada");

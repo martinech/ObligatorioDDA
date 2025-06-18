@@ -12,6 +12,7 @@ import vistas.VistaLoginGestor;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultListModel;
+import logica.Fachada;
 
 
 public class VentanaGestor extends javax.swing.JFrame implements VistaGestor{
@@ -23,25 +24,12 @@ public class VentanaGestor extends javax.swing.JFrame implements VistaGestor{
     public VentanaGestor(Gestor gestor) {
         initComponents();
         setLocationRelativeTo(null);
-        this.controlador = new ControladorGestor(this, gestor);
         this.gestor = gestor; 
         this.up = gestor.getUnidadProcesadora();
         lblEncabezado.setText("Gestor: " + gestor.getNombreCompleto() + " | Unidad: " + up.getNombre());
         
-        controlador = new ControladorGestor(this, gestor);
-        controlador.refrescarListar();
-        
-        //listener para cuando queremos cerrar la ventana y que se lance el logout
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                // 1) liberamos al gestor en la fachada
-                logica.Fachada.getInstancia().logoutGestor(gestor);
-                // 2) cerramos la ventana
-                dispose();
-            }
-        });
-        
+        this.controlador = new ControladorGestor(this, gestor);
+        controlador.refrescarListar();        
         
     }
 
@@ -66,7 +54,12 @@ public class VentanaGestor extends javax.swing.JFrame implements VistaGestor{
         jLabel1 = new javax.swing.JLabel();
         lblMensajes = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         lblEncabezado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -98,6 +91,11 @@ public class VentanaGestor extends javax.swing.JFrame implements VistaGestor{
 
         btnEntregarPedido.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEntregarPedido.setText("Entregar Pedido");
+        btnEntregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntregarPedidoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Mensajes del sistema:");
 
@@ -151,12 +149,24 @@ public class VentanaGestor extends javax.swing.JFrame implements VistaGestor{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTomarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarPedidoActionPerformed
-        // TODO add your handling code here:
+        //obtengo el indice seleccionado de la lista
+        int sel = listPedidosPendientes.getSelectedIndex();
+        
+        //delego el en controlador
+        controlador.tomarPedido(sel);
     }//GEN-LAST:event_btnTomarPedidoActionPerformed
 
     private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
-        // TODO add your handling code here:
+        controlador.finalizarPedido(tblPedidosTomados.getSelectedRow());
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
+
+    private void btnEntregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregarPedidoActionPerformed
+        controlador.entregarPedido(tblPedidosTomados.getSelectedRow());
+    }//GEN-LAST:event_btnEntregarPedidoActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(controlador.logout(gestor)) this.dispose();
+    }//GEN-LAST:event_formWindowClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

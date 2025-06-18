@@ -13,7 +13,7 @@ public class Servicio extends Observable{
 
    
     
-    public enum eventos{nuevoPedido, pedidoEliminado, confirmarServicio};
+    public enum eventos{nuevoPedido, pedidoEliminado, confirmarServicio, pedidoFinalizado, pedidoEntregado};
     
     private Cliente cliente;
     

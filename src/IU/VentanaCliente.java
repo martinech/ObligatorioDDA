@@ -216,20 +216,8 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
                                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(52, 52, 52))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnConfirmarPedidos)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnFinalizarServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnConfirmarFinalizar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 1301, Short.MAX_VALUE)))
+                .addGap(22, 22, 22)
+                .addComponent(jSeparator4)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -244,6 +232,16 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
                 .addGap(94, 94, 94))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(btnConfirmarPedidos)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnFinalizarServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnConfirmarFinalizar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1249, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +260,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 1024, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,12 +480,11 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
     }
     
     @Override
-    public void loginExitoso(Cliente cliente) {
-        Servicio servicio = Fachada.getInstancia().comenzarServicio(cliente);
+    public void loginExitoso(Cliente cliente, Servicio servicio) {
         this.servicio = servicio;
         controladorPedido = new ControladorRealizarPedido(this, servicio);
-        txtMensaje.setText("Bienvenido - "+ servicio.getCliente().getNombreCompleto());
-        setTitle("Bienvenido - "+ servicio.getCliente().getNombreCompleto());
+        txtMensaje.setText("Bienvenido – " + cliente.getNombreCompleto());
+        setTitle("Bienvenido – " + cliente.getNombreCompleto());
         cargarCategorias(Fachada.getInstancia().getCategorias());
     }
 
@@ -542,7 +539,7 @@ public class VentanaCliente extends javax.swing.JFrame implements VistaCliente{
 }
 
  
-    private void borrarMensaje(){
+    public void borrarMensaje(){
         txtMensaje.setText("");
     }
     

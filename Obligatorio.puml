@@ -1,0 +1,63 @@
+@startuml
+annotation java.lang.Override
+class controladores.ControladorGestor
+class controladores.ControladorLoginCliente
+class controladores.ControladorLoginGestor
+class controladores.ControladorRealizarPedido
+class dominio.Categoria
+class dominio.Cliente
+class dominio.EstadoPedido
+class dominio.Gestor
+class dominio.ItemMenu
+class dominio.Pedido
+class dominio.Servicio
+class excepciones.PollomorfismoException
+class java.util.ArrayList
+class java.util.List
+class logica.Fachada
+class observador.Observable
+class vistas.VistaCliente
+class vistas.VistaGestor
+class vistas.VistaLoginGestor
+interface observador.Observador
+controladores.ControladorGestor ..> java.lang.Override
+controladores.ControladorGestor ..> dominio.EstadoPedido
+controladores.ControladorGestor ..> dominio.Gestor
+controladores.ControladorGestor ..> dominio.Pedido
+controladores.ControladorGestor ..> dominio.Servicio
+controladores.ControladorGestor ..> excepciones.PollomorfismoException
+controladores.ControladorGestor ..> java.util.List
+controladores.ControladorGestor ..> logica.Fachada
+controladores.ControladorGestor ..> observador.Observable
+controladores.ControladorGestor ..> vistas.VistaGestor
+controladores.ControladorGestor --|> observador.Observador
+controladores.ControladorLoginCliente ..> java.lang.Override
+controladores.ControladorLoginCliente ..> dominio.Categoria
+controladores.ControladorLoginCliente ..> dominio.Cliente
+controladores.ControladorLoginCliente ..> dominio.Servicio
+controladores.ControladorLoginCliente ..> excepciones.PollomorfismoException
+controladores.ControladorLoginCliente ..> java.util.ArrayList
+controladores.ControladorLoginCliente ..> logica.Fachada
+controladores.ControladorLoginCliente ..> observador.Observable
+controladores.ControladorLoginCliente ..> vistas.VistaCliente
+controladores.ControladorLoginCliente --|> observador.Observador
+controladores.ControladorLoginGestor ..> dominio.Cliente
+controladores.ControladorLoginGestor ..> dominio.Gestor
+controladores.ControladorLoginGestor ..> excepciones.PollomorfismoException
+controladores.ControladorLoginGestor ..> logica.Fachada
+controladores.ControladorLoginGestor ..> observador.Observable
+controladores.ControladorLoginGestor ..> vistas.VistaLoginGestor
+controladores.ControladorLoginGestor ..> observador.Observador
+controladores.ControladorRealizarPedido ..> java.lang.Override
+controladores.ControladorRealizarPedido ..> dominio.Categoria
+controladores.ControladorRealizarPedido ..> dominio.Cliente
+controladores.ControladorRealizarPedido ..> dominio.ItemMenu
+controladores.ControladorRealizarPedido ..> dominio.Pedido
+controladores.ControladorRealizarPedido ..> dominio.Servicio
+controladores.ControladorRealizarPedido ..> excepciones.PollomorfismoException
+controladores.ControladorRealizarPedido ..> java.util.ArrayList
+controladores.ControladorRealizarPedido ..> logica.Fachada
+controladores.ControladorRealizarPedido ..> observador.Observable
+controladores.ControladorRealizarPedido ..> vistas.VistaCliente
+controladores.ControladorRealizarPedido --|> observador.Observador
+@enduml

@@ -1,6 +1,7 @@
 
 package dominio;
 
+import excepciones.PollomorfismoException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -66,6 +67,20 @@ public class Pedido {
 
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
+    }
+    
+    public void finalizar() throws PollomorfismoException{
+        if(estado != EstadoPedido.EN_PROCESO){
+            throw new PollomorfismoException("El pedido debe estar en proceso para finalizarlo.");
+        }
+        this.estado = EstadoPedido.FINALIZADO;
+    }
+    
+    public void entregar() throws PollomorfismoException{
+        if(estado != EstadoPedido.FINALIZADO){
+            throw new PollomorfismoException("El pedido debe estar finalizado para entregarse.");
+        }
+        this.estado = EstadoPedido.ENTREGADO;
     }
   
 }

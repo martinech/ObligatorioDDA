@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package logica;
 
 import dominio.Categoria;
@@ -16,13 +13,10 @@ import java.util.List;
 import observador.Observable;
 import observador.Observador;
 
-/**
- *
- * @author marti
- */
-public class Fachada extends Observable{
-    
-    public enum eventos {loginCliente, loginGestor, nuevoPedido};
+public class Fachada extends Observable implements Observador{
+
+
+    public enum eventos {loginCliente, loginGestor, nuevoPedido, logoutGestor};
     
     private SistemaAcceso sAcceso = new SistemaAcceso();
     
@@ -77,8 +71,8 @@ public class Fachada extends Observable{
     }
     
     
-     public void logoutGestor(Gestor g){
-        sAcceso.logoutGestor(g);
+     public boolean logoutGestor(Gestor g) throws PollomorfismoException{
+        return sAcceso.logoutGestor(g);
      }
     
     public void asignarDispositivoDisponible(Cliente cliente) throws PollomorfismoException{
@@ -86,12 +80,14 @@ public class Fachada extends Observable{
     }
     
     public Servicio comenzarServicio(Cliente cliente){
-        return sPedido.comenzarServicio(cliente);
+        Servicio s = sPedido.comenzarServicio(cliente);
+        s.agregarObservador(this);
+        return s;
     }
     
-    public void agregarPedidoAServicioCliente(Servicio servicio, Pedido pedido){
+   /* public void agregarPedidoAServicioCliente(Servicio servicio, Pedido pedido){
         sPedido.agregarPedidoAServicioCliente(servicio, pedido);
-    }
+    }*/
     
     public ArrayList<Categoria> getCategorias(){
         return sMenu.getCategorias();
@@ -121,4 +117,21 @@ public class Fachada extends Observable{
         return sPedido.getPedidosPendientesPorUnidad(up);
     }
 
+    public void asignarPedidosAGestor(Pedido ped, Gestor ges) throws PollomorfismoException{
+        sPedido.asignarPedidosAGestor(ped, ges);
+    }
+    
+    
+     public void finalizarPedido(Pedido ped, Gestor ges) throws PollomorfismoException{
+         sPedido.finalizarPedido(ped, ges);
+     }
+     
+     public void entregarPedido(Pedido ped, Gestor ges) throws PollomorfismoException{
+         sPedido.entregarPedido(ped, ges);
+     }
+    
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+        avisar(evento);
+    }
 }

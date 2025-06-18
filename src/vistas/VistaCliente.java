@@ -7,6 +7,7 @@ package vistas;
 import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Pedido;
+import dominio.Servicio;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +22,7 @@ public interface VistaCliente {
         
     public void mostrarPedidosServicio(ArrayList<Pedido> pedidos);
     
-    public void loginExitoso(Cliente cliente);
+    public void loginExitoso(Cliente cliente, Servicio servicio);
 
     public void mostrarError(String message);
     

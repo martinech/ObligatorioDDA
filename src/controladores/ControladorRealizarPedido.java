@@ -46,13 +46,15 @@ public class ControladorRealizarPedido implements Observador{
             String item = ev.substring("stockQuitado:".length());
             vista.mostrarError("Nos hemos quedado sin stock de " + item + ", no pudimos avisar antes.");
         }            
-        if (evento == Servicio.eventos.nuevoPedido) {            
+        if (evento == Servicio.eventos.nuevoPedido || evento == Servicio.eventos.pedidoEliminado || evento == Servicio.eventos.confirmarServicio) {            
             vista.mostrarPedidosServicio(servicio.getPedidos());
         }
-        if (evento == Servicio.eventos.pedidoEliminado){
+        if(evento == Servicio.eventos.pedidoFinalizado){
+            vista.mostrarMensaje("Tiene un pedido pronto para retirar");
             vista.mostrarPedidosServicio(servicio.getPedidos());
         }
-        if (evento == Servicio.eventos.confirmarServicio){
+        if(evento == Servicio.eventos.pedidoEntregado){
+            vista.mostrarMensaje("");
             vista.mostrarPedidosServicio(servicio.getPedidos());
         }
     }
@@ -163,6 +165,5 @@ public class ControladorRealizarPedido implements Observador{
         vista.mostrarMensaje(mensaje);
         vista.marcarPagoPendiente();
     }
-    
     
 }
